@@ -5,6 +5,7 @@
     android:id="@+id/navigation"
     app:startDestination="@id/titleFragment">
 
+    <!-- titleFragment -->
     <fragment
         android:id="@+id/titleFragment"
         android:name="com.example.android.navigation.TitleFragment"
@@ -15,6 +16,7 @@
             app:destination="@id/gameFragment" />
     </fragment>
 
+    <!-- gameFragment -->
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.android.navigation.GameFragment"
@@ -32,14 +34,28 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- gameOverFragment -->
     <fragment
         android:id="@+id/gameOverFragment"
         android:name="com.example.android.navigation.GameOverFragment"
         android:label="fragment_game_over"
-        tools:layout="@layout/fragment_game_over" />
+        tools:layout="@layout/fragment_game_over">
+        <action
+            android:id="@+id/action_gameOverFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/gameFragment" />
+    </fragment>
+
+    <!-- gameWonFragment -->
     <fragment
         android:id="@+id/gameWonFragment"
         android:name="com.example.android.navigation.GameWonFragment"
         android:label="fragment_game_won"
-        tools:layout="@layout/fragment_game_won" />
+        tools:layout="@layout/fragment_game_won">
+        <action
+            android:id="@+id/action_gameWonFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/titleFragment" />
+    </fragment>
+
 </navigation>
