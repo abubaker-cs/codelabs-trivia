@@ -19,11 +19,15 @@ package com.example.android.navigation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    // Step 2
+    private lateinit var drawerLayout: DrawerLayout
 
     // On Create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,18 +35,29 @@ class MainActivity : AppCompatActivity() {
         @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
+        // Step 3
+        drawerLayout = binding.drawerLayout
+
         // The navigation controller integrates with the app bar to implement the behavior of the Up button
         val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
 
-        // Drawer
+        // Step 4 - We need to add drawerLayout as the 3rd parameter
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        // NavigationUI.setupActionBarWithNavController(this, navController)
+
+        // Step 1 - Drawer
         NavigationUI.setupWithNavController(binding.navView, navController)
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
-        return navController.navigateUp()
+
+        // Step 5 - Return NavigationUI
+        return NavigationUI.navigateUp(navController, drawerLayout)
+
+        // return navController.navigateUp()
+
     }
 
     // TODO (01) Create the new TitleFragment
