@@ -41,7 +41,11 @@ class TitleFragment : Fragment() {
         inflater.inflate(R.menu.options_menu, menu)
     }
 
-    // Click Event for the About menu item
+    // Click Event for the menu items
+    // ==============================
+    // Make sure that the ID of our menu-items is exactly same as the name of the targeted destination
+    // i.e menu-item with ID: aboutFragment should be same based on aboutFragment.kt file
+    // same as menu-item with ID gameOverFragment should be same based on gameOverFragment.kt file
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
