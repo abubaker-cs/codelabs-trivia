@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, drawerLayout)
 
         // return navController.navigateUp()
-
     }
 
     // TODO (01) Create the new TitleFragment
