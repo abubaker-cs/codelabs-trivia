@@ -16,10 +16,9 @@
 
 package com.example.android.navigation
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -47,6 +46,62 @@ class GameWonFragment : Fragment() {
             // view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
         }
 
+        // We are informing the system that we will be using option menu for this fragment
+        setHasOptionsMenu(true)
+
         return binding.root
     }
+
+
+    // Configuring our Options Menu through XML file
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        // Inflate our menu so it can be shown in the view
+        super.onCreateOptionsMenu(menu, inflater)
+
+        // Take the UI Design from @res/menu/winner_menu.xml file
+        inflater.inflate(R.menu.winner_menu, menu)
+
+        //
+        if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
+            menu.findItem(R.id.share).isVisible = false
+        }
+
+    }
+
+    // What to do when the user will click on the menu item?
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        // If the menu's id = share then initalize shareSuccess() function
+        when (item.itemId) {
+            R.id.share -> shareSuccess()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    // This function will be executed when the user will click on the share icon in options menu
+    private fun shareSuccess() {
+        startActivity(getShareIntent())
+    }
+
+    // This function will be called though shareSuccess() function
+    // Markup for our Share Intent
+    private fun getShareIntent(): Intent {
+
+        // It will save DATA i.e. Total Questions and Correct Answers retrieved from GameFragment
+        val args = GameWonFragmentArgs.fromBundle(requireArguments())
+
+        // Intent Type: Share
+        val shareIntent = Intent(Intent.ACTION_SEND)
+
+        // Defining structure of our Intent message with args previously saved from GameFragment
+        shareIntent.setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
+
+        // Submit our intent
+        return shareIntent
+    }
+
 }
+
