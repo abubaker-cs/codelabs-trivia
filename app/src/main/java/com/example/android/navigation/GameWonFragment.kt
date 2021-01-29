@@ -34,7 +34,7 @@ class GameWonFragment : Fragment() {
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_won, container, false)
 
-        // Fetch DATA from GameFragment.kt using SafeArgs
+        // Fetch DATA from GameFragment.kt using SafeArgs.
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
 
         // Display DATA using Toast
