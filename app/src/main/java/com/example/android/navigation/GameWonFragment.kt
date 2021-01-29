@@ -62,7 +62,9 @@ class GameWonFragment : Fragment() {
         // Take the UI Design from @res/menu/winner_menu.xml file
         inflater.inflate(R.menu.winner_menu, menu)
 
-        //
+        // We need to make sure that there are external apps (acitivites) which can handle our submitted request, so the app
+        // will not crash, to make sure we will request packegManager using resolveActivity to let us know if required apps
+        // are installed in user's mobile otherwise as a precaution we will have hide/remove our menu item form the view
         if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
             menu.findItem(R.id.share).isVisible = false
         }
